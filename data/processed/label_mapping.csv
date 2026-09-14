@@ -1,0 +1,101 @@
+encoded_label,disease
+0,actinic keratosis
+1,acute bronchiolitis
+2,acute bronchitis
+3,acute bronchospasm
+4,acute kidney injury
+5,acute pancreatitis
+6,acute sinusitis
+7,allergy
+8,angina
+9,anxiety
+10,appendicitis
+11,arthritis of the hip
+12,asthma
+13,benign prostatic hyperplasia (bph)
+14,brachial neuritis
+15,bursitis
+16,carpal tunnel syndrome
+17,cholecystitis
+18,chronic back pain
+19,chronic constipation
+20,chronic obstructive pulmonary disease (copd)
+21,common cold
+22,complex regional pain syndrome
+23,concussion
+24,conjunctivitis
+25,conjunctivitis due to allergy
+26,contact dermatitis
+27,cornea infection
+28,croup
+29,cystitis
+30,degenerative disc disease
+31,dental caries
+32,depression
+33,developmental disability
+34,diaper rash
+35,diverticulitis
+36,drug reaction
+37,ear drum damage
+38,eczema
+39,esophagitis
+40,eustachian tube dysfunction (ear disorder)
+41,fungal infection of the hair
+42,gallstone
+43,gastrointestinal hemorrhage
+44,gout
+45,gum disease
+46,heart attack
+47,heart failure
+48,hemorrhoids
+49,herniated disk
+50,hiatal hernia
+51,hyperemesis gravidarum
+52,hypertensive heart disease
+53,hypoglycemia
+54,idiopathic excessive menstruation
+55,idiopathic irregular menstrual cycle
+56,idiopathic painful menstruation
+57,infectious gastroenteritis
+58,injury to the arm
+59,injury to the leg
+60,injury to the trunk
+61,liver disease
+62,macular degeneration
+63,marijuana abuse
+64,multiple sclerosis
+65,noninfectious gastroenteritis
+66,nose disorder
+67,obstructive sleep apnea (osa)
+68,otitis externa (swimmer's ear)
+69,otitis media
+70,pain after an operation
+71,panic disorder
+72,pelvic inflammatory disease
+73,peripheral nerve disorder
+74,personality disorder
+75,pneumonia
+76,problem during pregnancy
+77,psoriasis
+78,pyogenic skin infection
+79,rectal disorder
+80,schizophrenia
+81,seasonal allergies (hay fever)
+82,sebaceous cyst
+83,sepsis
+84,sickle cell crisis
+85,sinus bradycardia
+86,skin pigmentation disorder
+87,skin polyp
+88,spinal stenosis
+89,spondylosis
+90,spontaneous abortion
+91,sprain or strain
+92,strep throat
+93,stye
+94,temporary or benign blood in urine
+95,threatened pregnancy
+96,urinary tract infection
+97,vaginal cyst
+98,vaginitis
+99,vulvodynia

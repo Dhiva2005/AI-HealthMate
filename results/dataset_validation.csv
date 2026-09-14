@@ -1,0 +1,6 @@
+dataset,main_dataset_diseases,recommendation_diseases,missing_diseases,extra_diseases
+description.csv,100,100,0,0
+medications.csv,100,100,0,0
+precautions.csv,100,100,1,1
+diets.csv,100,100,0,0
+workout.csv,100,100,0,0

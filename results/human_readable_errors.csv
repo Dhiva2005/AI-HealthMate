@@ -1,0 +1,21 @@
+actual,actual_disease,predicted,predicted_disease,count
+57,infectious gastroenteritis,65,noninfectious gastroenteritis,78
+65,noninfectious gastroenteritis,57,infectious gastroenteritis,76
+94,temporary or benign blood in urine,29,cystitis,48
+86,skin pigmentation disorder,87,skin polyp,45
+87,skin polyp,86,skin pigmentation disorder,41
+17,cholecystitis,42,gallstone,40
+80,schizophrenia,74,personality disorder,36
+74,personality disorder,80,schizophrenia,36
+74,personality disorder,63,marijuana abuse,35
+29,cystitis,94,temporary or benign blood in urine,34
+20,chronic obstructive pulmonary disease (copd),2,acute bronchitis,32
+63,marijuana abuse,74,personality disorder,29
+2,acute bronchitis,20,chronic obstructive pulmonary disease (copd),29
+42,gallstone,17,cholecystitis,26
+75,pneumonia,3,acute bronchospasm,26
+88,spinal stenosis,30,degenerative disc disease,24
+30,degenerative disc disease,89,spondylosis,23
+97,vaginal cyst,95,threatened pregnancy,23
+89,spondylosis,30,degenerative disc disease,22
+97,vaginal cyst,90,spontaneous abortion,21
