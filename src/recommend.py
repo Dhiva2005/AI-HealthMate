@@ -104,18 +104,20 @@ def parse_list(value):
             parsed = ast.literal_eval(value)
 
             if isinstance(parsed, list):
+
                 return [
                     str(item).strip()
                     for item in parsed
+                    if str(item).strip()
                 ]
 
         except (ValueError, SyntaxError):
             pass
 
-        # If it is just normal text
-        return [value.strip()]
+        # If it is normal text
+        return [value.strip()] if value.strip() else []
 
-    return [str(value).strip()]
+    return [str(value).strip()] if str(value).strip() else []
 
 
 # ============================================================
@@ -126,7 +128,6 @@ def get_recommendations(disease):
 
     disease_key = normalize_disease_name(disease)
 
-
     # --------------------------------------------------------
     # DESCRIPTION
     # --------------------------------------------------------
@@ -136,9 +137,11 @@ def get_recommendations(disease):
     ]
 
     if description_result.empty:
+
         description = "Description not available."
 
     else:
+
         description = str(
             description_result.iloc[0]["Description"]
         )
@@ -190,9 +193,12 @@ def get_recommendations(disease):
 
             if pd.notna(row[column]):
 
-                precautions.append(
-                    str(row[column]).strip()
-                )
+                precaution = str(
+                    row[column]
+                ).strip()
+
+                if precaution:
+                    precautions.append(precaution)
 
 
     # --------------------------------------------------------
@@ -278,7 +284,9 @@ if __name__ == "__main__":
         "\nEnter disease name: "
     ).strip()
 
-    recommendations = get_recommendations(disease)
+    recommendations = get_recommendations(
+        disease
+    )
 
     if recommendations["description"] == "Description not available.":
 
@@ -300,6 +308,13 @@ if __name__ == "__main__":
         print("\n" + "-" * 70)
         print("MEDICATION INFORMATION")
         print("-" * 70)
+
+        print(
+            "The following information is provided for "
+            "educational purposes only and is not a prescription. "
+            "Consult a qualified healthcare professional before "
+            "taking any medication."
+        )
 
         display_list(
             recommendations["medications"]
@@ -331,3 +346,17 @@ if __name__ == "__main__":
         display_list(
             recommendations["workout"]
         )
+
+
+        print("\n" + "=" * 70)
+        print(
+            "DISCLAIMER: AI HealthMate provides educational "
+            "information and decision-support only."
+        )
+
+        print(
+            "The information provided is not a medical diagnosis "
+            "or a substitute for professional medical advice."
+        )
+
+        print("=" * 70)

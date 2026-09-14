@@ -19,7 +19,6 @@ MODEL_PATH = ROOT / "models" / "random_forest_model.pkl"
 # ============================================================
 
 SYMPTOM_ALIASES = {
-
     "head ache": "headache",
     "head pain": "headache",
 
@@ -130,9 +129,9 @@ def normalize_symptom(user_symptom, symptoms):
         for symptom in symptoms
     }
 
-    # Direct match
     normalized_input = user_symptom.strip().lower()
 
+    # Direct match
     if normalized_input in symptom_lookup:
         return symptom_lookup[normalized_input]
 
@@ -158,31 +157,58 @@ def predict_disease(
     selected_symptoms
 ):
 
-    # Create 230-feature vector
+    # --------------------------------------------------------
+    # Create symptom-to-index lookup
+    # --------------------------------------------------------
+
+    symptom_index = {
+        symptom: index
+        for index, symptom in enumerate(symptoms)
+    }
+
+    # --------------------------------------------------------
+    # Create feature vector
+    # --------------------------------------------------------
+
     input_data = [0] * len(symptoms)
 
     for symptom in selected_symptoms:
 
-        index = symptoms.index(symptom)
+        if symptom in symptom_index:
 
-        input_data[index] = 1
+            index = symptom_index[symptom]
+
+            input_data[index] = 1
+
+    # --------------------------------------------------------
+    # Create DataFrame
+    # --------------------------------------------------------
 
     input_df = pd.DataFrame(
         [input_data],
         columns=symptoms
     )
 
-    # Prediction
+    # --------------------------------------------------------
+    # Predict disease
+    # --------------------------------------------------------
+
     prediction = model.predict(input_df)[0]
 
     disease = label_map[prediction]
 
-    # Model scores
+    # --------------------------------------------------------
+    # Calculate model score
+    # --------------------------------------------------------
+
     probabilities = model.predict_proba(input_df)[0]
 
     confidence = probabilities[prediction]
 
-    # Top 3 predictions
+    # --------------------------------------------------------
+    # Get top 3 predictions
+    # --------------------------------------------------------
+
     top_indices = probabilities.argsort()[-3:][::-1]
 
     top_predictions = []
@@ -194,10 +220,17 @@ def predict_disease(
         score = probabilities[index] * 100
 
         top_predictions.append(
-            (predicted_disease, score)
+            (
+                predicted_disease,
+                score
+            )
         )
 
-    return disease, confidence * 100, top_predictions
+    return (
+        disease,
+        confidence * 100,
+        top_predictions
+    )
 
 
 # ============================================================
@@ -235,7 +268,8 @@ if __name__ == "__main__":
 
         else:
 
-            unrecognized_symptoms.append(symptom)
+            if symptom not in unrecognized_symptoms:
+                unrecognized_symptoms.append(symptom)
 
     print("\n" + "=" * 70)
     print("SYMPTOM INPUT RESULTS")
@@ -249,6 +283,7 @@ if __name__ == "__main__":
             print(f"✓ {symptom}")
 
     else:
+
         print("None")
 
     if unrecognized_symptoms:

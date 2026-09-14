@@ -31,6 +31,10 @@ build/
 *.pkl
 *.joblib
 
+# Dataset files
+data/raw/*
+data/processed/*
+
 # Node
 node_modules/
 .next/
