@@ -3,6 +3,7 @@ import sys
 from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 
@@ -32,6 +33,22 @@ app = FastAPI(
     title="AI HealthMate API",
     description="AI-based disease prediction and health recommendation API.",
     version="1.0.0"
+)
+
+
+# ============================================================
+# CORS CONFIGURATION
+# ============================================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -73,7 +90,7 @@ class TopPrediction(BaseModel):
     model_score: float = Field(
         ...,
         description=(
-            "Random Forest model score for the prediction. "
+            "Model score for the prediction. "
             "This is not a clinical probability."
         )
     )
@@ -185,6 +202,43 @@ def health_check():
 
 
 # ============================================================
+# SYMPTOM LIST ENDPOINT
+# ============================================================
+
+@app.get(
+    "/symptoms",
+    summary="Get Available Symptoms",
+    description=(
+        "Return the complete list of symptoms supported "
+        "by the AI HealthMate prediction model."
+    )
+)
+def get_symptoms():
+
+    # --------------------------------------------------------
+    # Check service availability
+    # --------------------------------------------------------
+
+    if healthmate_service is None:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "AI HealthMate service is unavailable. "
+                "Please check the server logs."
+            )
+        )
+
+    # --------------------------------------------------------
+    # Return model symptoms
+    # --------------------------------------------------------
+
+    return {
+        "symptoms": healthmate_service.symptoms
+    }
+
+
+# ============================================================
 # PREDICTION ENDPOINT
 # ============================================================
 
@@ -213,7 +267,6 @@ def predict_disease(request: PredictionRequest):
             )
         )
 
-
     # --------------------------------------------------------
     # Process symptoms
     # --------------------------------------------------------
@@ -226,7 +279,6 @@ def predict_disease(request: PredictionRequest):
 
         return result
 
-
     # --------------------------------------------------------
     # Handle invalid symptom input
     # --------------------------------------------------------
@@ -238,12 +290,11 @@ def predict_disease(request: PredictionRequest):
             detail=str(error)
         )
 
-
     # --------------------------------------------------------
     # Handle unexpected errors
     # --------------------------------------------------------
 
-    except Exception as error:
+    except Exception:
 
         raise HTTPException(
             status_code=500,
@@ -252,4 +303,3 @@ def predict_disease(request: PredictionRequest):
                 "processing the prediction."
             )
         )
-
